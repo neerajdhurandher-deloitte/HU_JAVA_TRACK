@@ -47,7 +47,7 @@ public class StringMain {
         }
 
 
-        System.out.println(valid_str);
+//        System.out.println(valid_str);
 
         if(valid_str.equals(shuffle_str)){
             System.out.println("Valid Input");
