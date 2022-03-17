@@ -9,4 +9,7 @@
   <li>
     <a href = "https://github.com/neerajdhurandher-deloitte/HU_JAVA_TRACK/tree/Arrays_And_Strings_Assignment">Arrays And Strings Assignment </a>
   </li>
+  <li>
+    <a href = "https://github.com/neerajdhurandher-deloitte/HU_JAVA_TRACK/tree/Collection_Assignment">Collection Assignment</a>
+  </li>
 </ul>
