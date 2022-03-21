@@ -64,98 +64,54 @@ public class DB_Operations {
                 String address = "";
                 String phoneNumber = "";
 
+                if(currentUserSerialNo > 0) {
 
-                for(String index : row){
-
-//                    System.out.println(entity_no + " " +index);
-
-//                    if(currentUserSerialNo == 3)
-//                        System.out.println("entity no :- "+entity_no+ " sn :- "+ currentUserSerialNo +" index :- " + index);
-
-                    if(currentUserSerialNo > 0){
+                    // loop for all iterate all entities
+                    for (String index : row) {
+//                        System.out.println(entity_no + " " +index);
 
                         switch (entity_no) {
-                            case 1 -> {
-                                userId = Integer.parseInt(index);
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " userId :- " + index);
-                            }
-                            case 2 -> {
-                                userName = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " userName :- " + index);
-                            }
-                            case 3 -> {
-                                password = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " password :- " + index);
-                            }
-
-                            case 4 -> {
-                                name = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " name :- " + index);
-                            }
-                            case 5 -> {
-                                age = Integer.parseInt(index);
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " age :- " + index);
-                            }
-                            case 6 -> {
-                                company_name = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " company_name :- " + index);
-                            }
-                            case 7 -> {
-                                designation = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " designation :- " + index);
-                            }
-                            case 8 -> {
-                                salary = Integer.parseInt(index);
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " salary :- " + index);
-                            }
-                            case 9 -> {
-                                address = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " address :- " + index);
-                            }
-                            case 10 -> {
-                                phoneNumber = index;
-//                                System.out.println("entity no :- " + entity_no + " sn :- " + currentUserSerialNo + " phoneNumber :- " + index);
-                            }
+                            case 1 -> userId = Integer.parseInt(index);
+                            case 2 -> userName = index;
+                            case 3 -> password = index;
+                            case 4 -> name = index;
+                            case 5 -> age = Integer.parseInt(index);
+                            case 6 -> company_name = index;
+                            case 7 -> designation = index;
+                            case 8 -> salary = Integer.parseInt(index);
+                            case 9 -> address = index;
+                            case 10 -> phoneNumber = index;
                         }
-
+                        entity_no++;
                     }
 
-                    entity_no++;
 
-                }
+                    User_Object add_user = new User_Object();
 
-                User_Object add_user = new User_Object();
+                    add_user.setUserId(userId);
+                    add_user.setUserName(userName);
+                    add_user.setPassword(password);
+                    add_user.setName(name);
+                    add_user.setAge(age);
+                    add_user.setCompanyName(company_name);
+                    add_user.setDesignation(designation);
+                    add_user.setSalary(salary);
+                    add_user.setAddress(address);
+                    add_user.setPhoneNumber(phoneNumber);
 
-                add_user.setUserId(userList.size()+1);
-                add_user.setPassword(password);
-                add_user.setName(name);
-                add_user.setAge(age);
-                add_user.setCompanyName(company_name);
-                add_user.setDesignation(designation);
-                add_user.setSalary(salary);
-                add_user.setAddress(address);
-                add_user.setPhoneNumber(phoneNumber);
+                    userList.add(add_user);
 
-
-
-                userList.add(add_user);
-
-                if(currentUserName != null){
-                    if(currentUserName.equals(userName)){
-                        System.out.println("set user");
-                        setCurrent_user_object(add_user);
+                    if (currentUserName != null) {
+                        if (currentUserName.equals(userName)) {
+                            setCurrent_user_object(add_user);
+                        }
                     }
                 }
-//                printUser(add_user);
 
                 currentUserSerialNo++;
             }
 
             userListGlobal = userList;
-
-            for (User_Object user_object : userList){
-                printUser(user_object);
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,50 +122,31 @@ public class DB_Operations {
 
     }
 
-    public void addUser(User_Object user) {
+    public void addUser(User_Object user_object){
+        userListGlobal.add(user_object);
+    }
 
-        try {
+    public void updateUserDetails(){
 
-            PrintWriter printWriter = new PrintWriter("src/Main_Assignment/Database/UserDatabase.csv");
-            StringBuilder stringBuilder = new StringBuilder();
+    }
 
-            stringBuilder.append(user.getUserId());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getPassword());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getName());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getAge());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getCompanyName());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getDesignation());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getSalary());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getAddress());
-            stringBuilder.append(",");
-            stringBuilder.append(user.getPhoneNumber());
-
-            stringBuilder.append("\n");
-
-
-            printWriter.write(stringBuilder.toString());
-            printWriter.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }finally {
-            try {
-                readDB();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void deleteUser(){
+        for (User_Object user : userListGlobal) {
+            if (user.getUserName().equals(this.currentUserName)) {
+//                userListGlobal.remove(user);
+                System.out.println(user.getUserName());
             }
         }
     }
 
     public void getUserDetails(){
         printUser(current_user_object);
+    }
+
+    public void getAllUserDetails(){
+        for (User_Object user_object : userListGlobal){
+            printUser(user_object);
+        }
     }
 
     public void printUser(User_Object user_object){
@@ -225,4 +162,65 @@ public class DB_Operations {
 
     }
 
-}
+    public void updateDB() {
+
+        try {
+
+            PrintWriter printWriter = new PrintWriter("src/Main_Assignment/Database/UserDatabase.csv");
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append("User Id");
+            stringBuilder.append(",");
+            stringBuilder.append("User Name");
+            stringBuilder.append(",");
+            stringBuilder.append("Password");
+            stringBuilder.append(",");
+            stringBuilder.append("Name");
+            stringBuilder.append(",");
+            stringBuilder.append("Age");
+            stringBuilder.append(",");
+            stringBuilder.append("Company Name");
+            stringBuilder.append(",");
+            stringBuilder.append("Designation");
+            stringBuilder.append(",");
+            stringBuilder.append("Salary");
+            stringBuilder.append(",");
+            stringBuilder.append("Address");
+            stringBuilder.append(",");
+            stringBuilder.append("PhoneNumber");
+
+            stringBuilder.append("\n");
+
+            for (User_Object user : userListGlobal) {
+                stringBuilder.append(user.getUserId());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getUserName());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getPassword());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getName());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getAge());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getCompanyName());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getDesignation());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getSalary());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getAddress());
+                stringBuilder.append(",");
+                stringBuilder.append(user.getPhoneNumber());
+
+                stringBuilder.append("\n");
+            }
+
+
+            printWriter.write(stringBuilder.toString());
+            printWriter.close();
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }

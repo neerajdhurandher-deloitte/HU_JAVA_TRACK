@@ -125,6 +125,9 @@ public class DBFunctionalities {
     }
 
     public void deleteUser(){
+        db_operations.deleteUser();
+        System.out.println("THE USER RECORD IS DELETED SUCCESSFULLY ");
+        db_operations.getAllUserDetails();
 
     }
 

@@ -46,7 +46,7 @@ public class Main {
 
         boolean validUserName = false;
         boolean validPassword = false;
-        String readUserName;
+        String readUserName = "";
         String readUserPassword = "";
 
         while (!validUserName) {
@@ -88,12 +88,16 @@ public class Main {
 
         User_Object user_object = new User_Object();
         user_object.setUserId(db_Functionalities.db_operations.getUserListSize()+1);
+        user_object.setUserName(readUserName);
         user_object.setPassword(readUserPassword);
 
         try{
             db_Functionalities.addUserOperation(user_object);
+            gotoUserDashBoard();
         }catch (EmptyFieldException exception){
             System.out.println(exception.getExceptionMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -112,6 +116,11 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        if(db_Functionalities.userNameAvailability()){
+            System.out.println("Oops user doesn't exits");
+            goTOLogin();
+        }
+
         String readUserPassword = "";
 
         while (!validPassword) {
@@ -121,6 +130,9 @@ public class Main {
                 validPassword = db_Functionalities.passwordChecker(readUserPassword);
             }catch (Exception e){
                 System.out.println(e.getMessage());
+            }
+            if(!validPassword){
+                System.out.println("Incorrect password. Please try again...");
             }
         }
         printWelcomeHeading(db_Functionalities.db_operations.getCurrent_user_object().getName());
@@ -132,7 +144,7 @@ public class Main {
 
     }
 
-    private static void gotoUserDashBoard() throws EmptyFieldException {
+    private static void gotoUserDashBoard() throws Exception {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -162,9 +174,13 @@ public class Main {
 
                 case 3 -> db_Functionalities.updateUserOperation();
 
-                case 4 -> db_Functionalities.deleteUser();
+                case 4 -> {
+                    db_Functionalities.deleteUser();
+                    logInRegistrationPage();
+                }
 
                 case 5 -> {
+                    db_Functionalities.db_operations.updateDB();
                     continue;
                 }
 
