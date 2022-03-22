@@ -35,12 +35,25 @@ public class Main {
 
         System.out.println("1.Login");
         System.out.println("2.Registration");
+        System.out.println("3. Exit");
         System.out.print("Enter your choice :- ");
 
-        int loginRegiChoice = scanner.nextInt();
+        int loginRegiChoice = 0;
+
+        try {
+            loginRegiChoice = scanner.nextInt();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         switch (loginRegiChoice) {
             case 1 -> goTOLogin();
             case 2 -> goToRegistration();
+            case 3 -> {
+                db_Functionalities.db_operations.updateDB();
+                System.out.println("***** End of Program *****");
+                System.exit(0);
+            }
             default -> System.out.println("Please re run the program and select a valid option");
         }
     }
@@ -69,6 +82,10 @@ public class Main {
             }
             finally {
                 validUserName = db_Functionalities.userNameAvailability();
+
+                if(!validUserName){
+                    System.out.println("Username already exists. Please try with another username");
+                }
             }
         }
 
@@ -89,6 +106,7 @@ public class Main {
                 }
             }else {
                 System.out.println("Entered both password doesn't match. please try again....");
+
             }
         }
 

@@ -56,8 +56,9 @@ public class DBFunctionalities {
 
         while (!validCompanyName) {
             System.out.print("Enter company name: ");
-            String company_name = scanner.nextLine();
+            String company_name = "";
             try {
+                company_name = scanner.nextLine();
                 validCompanyName = userDetailValidator.emptyChecker(company_name, "Company Name");
             } catch (EmptyFieldException exception) {
                 System.out.println(exception.getExceptionMessage());
@@ -113,6 +114,9 @@ public class DBFunctionalities {
         }
 
         db_operations.addUser(user_object);
+        db_operations.setCurrent_user_object(user_object);
+        db_operations.setCurrentUserName(user_object.getUserName());
+        db_operations.printUser(db_operations.getCurrent_user_object());
 
     }
 

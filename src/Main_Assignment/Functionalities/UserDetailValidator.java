@@ -63,7 +63,7 @@ public class UserDetailValidator {
 
     public boolean AgeValidation(int age) throws AgeException {
         if(age < 18 || age > 90){
-            throw new AgeException("");
+            throw new AgeException("Age should be in between 18 to 90");
         }
         return true;
     }

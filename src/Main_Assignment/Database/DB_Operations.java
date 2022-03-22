@@ -31,7 +31,7 @@ public class DB_Operations {
         return current_user_object;
     }
 
-    private void setCurrent_user_object(User_Object current_user_object) {
+    public void setCurrent_user_object(User_Object current_user_object) {
         this.current_user_object = current_user_object;
     }
 
@@ -139,12 +139,13 @@ public class DB_Operations {
     }
 
     public void deleteUser(){
-        for (User_Object user : userListGlobal) {
-            if (user.getUserName().equals(this.currentUserName)) {
-                userListGlobal.remove(user);
-                System.out.println(user.getUserName());
-            }
-        }
+//        for (User_Object user : userListGlobal) {
+//            if (user.getUserName().equals(this.currentUserName)) {
+////                userListGlobal.remove(user);
+//                System.out.println(user.getUserName());
+//            }
+//        }
+        userListGlobal.remove(getCurrent_user_object());
     }
 
     public void getUserDetails(){
@@ -168,6 +169,7 @@ public class DB_Operations {
         System.out.println("7. Salary: "+user_object.getSalary());
         System.out.println("8. Address: "+user_object.getAddress());
         System.out.println("9. Phone Number: "+user_object.getPhoneNumber());
+        System.out.println();
 
     }
 
