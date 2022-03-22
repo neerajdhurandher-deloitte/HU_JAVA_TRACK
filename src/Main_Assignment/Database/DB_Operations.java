@@ -126,14 +126,22 @@ public class DB_Operations {
         userListGlobal.add(user_object);
     }
 
-    public void updateUserDetails(){
-
+    public void updateUserDetails(User_Object temp_user){
+        for (User_Object user : userListGlobal){
+            if(user.getUserId() == current_user_object.getUserId()){
+                userListGlobal.remove(user);
+                userListGlobal.add(temp_user);
+                setCurrent_user_object(temp_user);
+                setCurrentUserName(temp_user.getUserName());
+                break;
+            }
+        }
     }
 
     public void deleteUser(){
         for (User_Object user : userListGlobal) {
             if (user.getUserName().equals(this.currentUserName)) {
-//                userListGlobal.remove(user);
+                userListGlobal.remove(user);
                 System.out.println(user.getUserName());
             }
         }
@@ -152,13 +160,14 @@ public class DB_Operations {
     public void printUser(User_Object user_object){
 
         System.out.println("1.User-ID:  "+user_object.getUserId());
-        System.out.println("2.Name: "+user_object.getName());
-        System.out.println("3.Age: "+user_object.getAge());
-        System.out.println("4.Company Name: "+user_object.getCompanyName());
-        System.out.println("5. Designation: "+user_object.getDesignation());
-        System.out.println("6. Salary: "+user_object.getSalary());
-        System.out.println("7. Address: "+user_object.getAddress());
-        System.out.println("7. Phone Number: "+user_object.getPhoneNumber());
+        System.out.println("2.Username:  "+user_object.getUserName());
+        System.out.println("3.Name: "+user_object.getName());
+        System.out.println("4.Age: "+user_object.getAge());
+        System.out.println("5.Company Name: "+user_object.getCompanyName());
+        System.out.println("6. Designation: "+user_object.getDesignation());
+        System.out.println("7. Salary: "+user_object.getSalary());
+        System.out.println("8. Address: "+user_object.getAddress());
+        System.out.println("9. Phone Number: "+user_object.getPhoneNumber());
 
     }
 

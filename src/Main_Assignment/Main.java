@@ -24,6 +24,12 @@ public class Main {
         logInRegistrationPage();
     }
 
+    private static void printWelcomeHeading(String printData) {
+        System.out.println("***** Welcome " + printData+" ******");
+
+    }
+
+
     private static void logInRegistrationPage() throws Exception {
         Scanner scanner = new Scanner(System.in);
 
@@ -40,7 +46,7 @@ public class Main {
     }
 
     private static void goToRegistration() throws EmptyFieldException {
-        System.out.println("r");
+        printWelcomeHeading("Registration Page ");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -69,9 +75,9 @@ public class Main {
 
         while (!validPassword) {
 
-            System.out.print("Enter your password : ");
+            System.out.print("Enter password : ");
             readUserPassword = scanner.nextLine();
-            System.out.print("Re enter your password : ");
+            System.out.print("Re-enter password : ");
             String reReadUserPassword = scanner.nextLine();
 
             if(reReadUserPassword.equals(reReadUserPassword)) {
@@ -90,25 +96,33 @@ public class Main {
         user_object.setUserId(db_Functionalities.db_operations.getUserListSize()+1);
         user_object.setUserName(readUserName);
         user_object.setPassword(readUserPassword);
-
+        System.out.println("*** User Created ***");
         try{
             db_Functionalities.addUserOperation(user_object);
+            System.out.println("Registration successful");
             gotoUserDashBoard();
         }catch (EmptyFieldException exception){
             System.out.println(exception.getExceptionMessage());
         } catch (Exception e) {
+            System.out.println("Registration unsuccessful");
             e.printStackTrace();
         }
 
     }
 
     private static void goTOLogin() throws Exception {
+
+        printWelcomeHeading(" to Login Page");
+
         Scanner scanner = new Scanner(System.in);
 
         boolean validPassword = false;
+        String readUserName = "";
+        String readUserPassword = "";
 
-        System.out.print("Enter your user name : ");
-        String readUserName = scanner.nextLine();
+
+        System.out.print("Enter username : ");
+        readUserName = scanner.nextLine();
         db_Functionalities.db_operations.setCurrentUserName(readUserName);
         try {
             db_Functionalities.db_operations.readDB();
@@ -121,10 +135,9 @@ public class Main {
             goTOLogin();
         }
 
-        String readUserPassword = "";
 
         while (!validPassword) {
-            System.out.print("Enter your password : ");
+            System.out.print("Enter password : ");
             readUserPassword = scanner.nextLine();
             try{
                 validPassword = db_Functionalities.passwordChecker(readUserPassword);
@@ -139,10 +152,6 @@ public class Main {
         gotoUserDashBoard();
     }
 
-    private static void printWelcomeHeading(String printData) {
-        System.out.println("***** Welcome " + printData+" ******");
-
-    }
 
     private static void gotoUserDashBoard() throws Exception {
 
@@ -155,7 +164,7 @@ public class Main {
             System.out.println();
             System.out.println("1. Add User Data ");
             System.out.println("2. List User Data ");
-            System.out.println("3.Update User Data ");
+            System.out.println("3. Update User Data ");
             System.out.println("4. Delete User Data ");
             System.out.println("5. Exit ");
 
@@ -166,11 +175,15 @@ public class Main {
                 case 1 -> {
                     try {
                         db_Functionalities.addUserOperation(db_Functionalities.db_operations.getCurrent_user_object());
+                        System.out.println("User details add successfully");
                     } catch (EmptyFieldException exception) {
                         System.out.println(exception.getExceptionMessage());
                     }
                 }
-                case 2 -> db_Functionalities.getUserDetailsList();
+                case 2 -> {
+                    System.out.println("-------- User database records -------- ");
+                    db_Functionalities.getUserDetailsList();
+                }
 
                 case 3 -> db_Functionalities.updateUserOperation();
 
@@ -181,7 +194,7 @@ public class Main {
 
                 case 5 -> {
                     db_Functionalities.db_operations.updateDB();
-                    continue;
+                    System.out.println("***** End of Program *****");
                 }
 
                 default -> {

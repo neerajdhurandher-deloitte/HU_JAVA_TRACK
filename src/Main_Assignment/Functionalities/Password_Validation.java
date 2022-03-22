@@ -23,7 +23,7 @@ public class Password_Validation {
                 checkLowerCaseBool = checkLowerCase(password);
                 checkDigitBool = checkDigit(password);
             }catch (InvalidPasswordException exception){
-                System.out.println("catch "+exception.getExceptionMessage());
+                System.out.println(exception.getExceptionMessage());
             }
 
         return checkLengthBool && checkSpecialCharacterBool && checkUpperCaseBool && checkLowerCaseBool && checkDigitBool;

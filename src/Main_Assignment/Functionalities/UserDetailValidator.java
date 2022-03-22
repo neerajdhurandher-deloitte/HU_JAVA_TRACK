@@ -9,10 +9,14 @@ public class UserDetailValidator {
     }
 
     public boolean emptyChecker(String data ,String entity_type) throws EmptyFieldException {
-        if(data.isEmpty()){
+        if(data.isBlank()){
             throw new EmptyFieldException(entity_type);
         }
         return true;
+    }
+
+    public boolean emptyFieldChecker(String data){
+        return (data.isBlank());
     }
 
     // function for checking given password is valid type or not
